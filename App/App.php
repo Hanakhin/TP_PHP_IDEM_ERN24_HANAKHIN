@@ -13,11 +13,6 @@ use MiladRahimi\PhpRouter\Router;
 class App implements DatabaseConfigInterface
 {
   //on définit des constantes de la base de données
-  private const DB_HOST = "database";
-  private const DB_NAME = "nom_de_bdd";
-  private const DB_USER = "nom_utilisateur";
-  private const DB_PASS = "mdp_utilisateur";
-
   private static ?self $instance = null;
   //on crée une méthode public appelé au demarrage de l'appli dans index.php
   public static function getApp(): self
