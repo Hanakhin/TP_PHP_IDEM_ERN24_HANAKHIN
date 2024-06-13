@@ -47,4 +47,20 @@ class LogementRepository extends Repository
 
     }
 
+    public function GetLogementByTypeId(int $type_id)
+    {
+        $q = sprintf('SELECT * FROM %s WHERE `type_id` = :type_id AND `is_active` = 1',
+        $this->getTableName());
+
+        $stmt =$this->pdo->prepare($q);
+
+        if(!$stmt) return null;
+
+        $stmt->execute(['type_id' => $type_id]);
+
+        $result = $stmt->fetch();
+
+        $logement = new Logement($result);
+    }
+
 }
