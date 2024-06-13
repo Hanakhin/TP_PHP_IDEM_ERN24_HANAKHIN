@@ -3,7 +3,7 @@
       <div class="nav-logo">
         <a href="/">
           <!-- <img  src="/dir/vers/logo" alt="logo appli"> -->
-          <h3>Logo</h3>
+          <img src="../img/logo.svg" alt="" width="100px" height="50px">
         </a>
       </div>
 
@@ -12,9 +12,9 @@
         <nav>
           <ul class="d-flex justify-content-center">
             <li class="m-1"><a href="/">Accueil</a></li>
-            <li class="m-1"><a href="#">lien1</a></li>
-            <li class="m-1"><a href="#">lien2</a></li>
-            <li class="m-1"><a href="#">lien3</a></li>
+            <li class="m-1"><a href="#">Les Maisons</a></li>
+            <li class="m-1"><a href="#">Les appartements</a></li>
+            <li class="m-1"><a href="#">Les Villas</a></li>
           </ul>
         </nav>
       </div>
