@@ -1,0 +1,251 @@
+-- MySQL dump 10.13  Distrib 8.0.37, for Linux (x86_64)
+--
+-- Host: 127.0.0.1    Database: database_airbnb_hanakhin
+-- ------------------------------------------------------
+-- Server version	5.7.29
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `adresse`
+--
+
+DROP TABLE IF EXISTS `adresse`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `adresse` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `adress` varchar(255) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `country` varchar(255) DEFAULT NULL,
+  `zip_code` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `adresse`
+--
+
+/*!40000 ALTER TABLE `adresse` DISABLE KEYS */;
+/*!40000 ALTER TABLE `adresse` ENABLE KEYS */;
+
+--
+-- Table structure for table `equipement`
+--
+
+DROP TABLE IF EXISTS `equipement`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `equipement` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `label` varchar(255) DEFAULT NULL,
+  `image_path` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `equipement`
+--
+
+/*!40000 ALTER TABLE `equipement` DISABLE KEYS */;
+/*!40000 ALTER TABLE `equipement` ENABLE KEYS */;
+
+--
+-- Table structure for table `logement`
+--
+
+DROP TABLE IF EXISTS `logement`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `logement` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL,
+  `description` text,
+  `price_per_night` float DEFAULT NULL,
+  `nb_room` int(11) DEFAULT NULL,
+  `nb_bed` int(11) DEFAULT NULL,
+  `nb_bath` int(11) DEFAULT NULL,
+  `nb_traveler` int(11) DEFAULT NULL,
+  `is_active` tinyint(1) DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `type_id` int(11) DEFAULT NULL,
+  `adress_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_type_id` (`type_id`),
+  KEY `fk_user_id` (`user_id`),
+  KEY `fk_adresse_id` (`adress_id`),
+  CONSTRAINT `fk_adress_id` FOREIGN KEY (`adress_id`) REFERENCES `adresse` (`id`),
+  CONSTRAINT `fk_adresse_id` FOREIGN KEY (`adress_id`) REFERENCES `adresse` (`id`),
+  CONSTRAINT `fk_type_id` FOREIGN KEY (`type_id`) REFERENCES `type` (`id`),
+  CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `logement_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `type` (`id`),
+  CONSTRAINT `logement_ibfk_2` FOREIGN KEY (`adress_id`) REFERENCES `adresse` (`id`),
+  CONSTRAINT `logement_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `logement`
+--
+
+/*!40000 ALTER TABLE `logement` DISABLE KEYS */;
+/*!40000 ALTER TABLE `logement` ENABLE KEYS */;
+
+--
+-- Table structure for table `logementEquipement`
+--
+
+DROP TABLE IF EXISTS `logementEquipement`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `logementEquipement` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `equipement_id` int(11) DEFAULT NULL,
+  `logement_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_equipement_id` (`equipement_id`),
+  KEY `fk_logement_equipement_id` (`logement_id`),
+  CONSTRAINT `fk_equipement_id` FOREIGN KEY (`equipement_id`) REFERENCES `equipement` (`id`),
+  CONSTRAINT `fk_logement_equipement_id` FOREIGN KEY (`logement_id`) REFERENCES `logement` (`id`),
+  CONSTRAINT `logementEquipement_ibfk_1` FOREIGN KEY (`equipement_id`) REFERENCES `equipement` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `logementEquipement`
+--
+
+/*!40000 ALTER TABLE `logementEquipement` DISABLE KEYS */;
+/*!40000 ALTER TABLE `logementEquipement` ENABLE KEYS */;
+
+--
+-- Table structure for table `media`
+--
+
+DROP TABLE IF EXISTS `media`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `media` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `image_path` varchar(255) DEFAULT NULL,
+  `logement_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `logement_id` (`logement_id`),
+  CONSTRAINT `media_ibfk_1` FOREIGN KEY (`logement_id`) REFERENCES `logement` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `media`
+--
+
+/*!40000 ALTER TABLE `media` DISABLE KEYS */;
+/*!40000 ALTER TABLE `media` ENABLE KEYS */;
+
+--
+-- Table structure for table `reservation`
+--
+
+DROP TABLE IF EXISTS `reservation`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `reservation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date_debut` varchar(255) DEFAULT NULL,
+  `date_fin` varchar(255) DEFAULT NULL,
+  `nb_child` int(11) DEFAULT NULL,
+  `nb_adult` int(11) DEFAULT NULL,
+  `price_total` float DEFAULT NULL,
+  `logement_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_user_reservation_id` (`user_id`),
+  KEY `fk_logement_reservation_id` (`logement_id`),
+  CONSTRAINT `fk_logement_reservation_id` FOREIGN KEY (`logement_id`) REFERENCES `logement` (`id`),
+  CONSTRAINT `fk_user_reservation_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `reservation`
+--
+
+/*!40000 ALTER TABLE `reservation` DISABLE KEYS */;
+/*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
+
+--
+-- Table structure for table `type`
+--
+
+DROP TABLE IF EXISTS `type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `label` varchar(255) DEFAULT NULL,
+  `image_path` varchar(255) DEFAULT NULL,
+  `is_active` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `type`
+--
+
+/*!40000 ALTER TABLE `type` DISABLE KEYS */;
+/*!40000 ALTER TABLE `type` ENABLE KEYS */;
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `lastname` varchar(255) DEFAULT NULL,
+  `firstname` varchar(255) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `is_active` tinyint(1) DEFAULT NULL,
+  `adress_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user`
+--
+
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+
+--
+-- Dumping routines for database 'database_airbnb_hanakhin'
+--
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2024-06-13 14:02:38

@@ -1,4 +1,4 @@
-name: appli-vierge-poo
+name: tp_php_hanakhin
 recipe: lamp
 config:
   php: '8.2'
@@ -13,4 +13,4 @@ services:
     creds:
       user: admin
       password: admin
-      database: appli-vierge
+      database: database_airbnb_hanakhin

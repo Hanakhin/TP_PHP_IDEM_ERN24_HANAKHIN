@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Repository\LogementRepository;
 use Core\Repository\RepositoryManagerTrait;
 
 class AppRepoManager
@@ -11,7 +12,7 @@ class AppRepoManager
 
   //on déclare une propriété privée qui va contenir une instance du repository
 // exemple: private Repository $Repository;
-
+  private LogementRepository $LogementRepository;
 
   //on crée ensuite les getter pour accéder à la propriété privée
   //exemple: public function getRepository(): Repository

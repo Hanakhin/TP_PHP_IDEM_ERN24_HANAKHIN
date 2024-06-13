@@ -12,7 +12,7 @@ use MiladRahimi\PhpRouter\Router;
 
 class App implements DatabaseConfigInterface
 {
-  //on définit des constantes de la base de données
+
   private static ?self $instance = null;
   //on crée une méthode public appelé au demarrage de l'appli dans index.php
   public static function getApp(): self
@@ -73,21 +73,21 @@ class App implements DatabaseConfigInterface
 
   public function getHost(): string
   {
-    return self::DB_HOST;
+    return DB_HOST;
   }
 
   public function getName(): string
   {
-    return self::DB_NAME;
+    return DB_NAME;
   }
 
   public function getUser(): string
   {
-    return self::DB_USER;
+    return DB_USER;
   }
 
   public function getPass(): string
   {
-    return self::DB_PASS;
+    return DB_PASS;
   }
 }
