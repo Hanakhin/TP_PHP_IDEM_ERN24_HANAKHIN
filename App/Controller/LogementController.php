@@ -23,4 +23,24 @@ class LogementController extends Controller
         $view = new View('home/logements');
         $view->render($view_data);
     }
+
+    public function getAllLogement():void
+    {
+        $view_data=[
+            'h1' => 'toutes les maisons',
+            'logements' => AppRepoManager::getRm()->getLogementRepository()->getAllLogement()
+        ];
+        $view = new View('home/carte');
+        $view->render($view_data);
+    }
+
+    public function getDetail(int $id):void
+    {
+        $view_data = [
+            'h1'=> 'details de la maison',
+            'logements'=> AppRepoManager::getRm()->getLogementRepository()->getLogementByid($id)
+        ];
+        $view = new View('home/details');
+        $view->render($view_data);
+    }
 }

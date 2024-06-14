@@ -11,7 +11,7 @@
       <div>
         <nav>
           <ul class="d-flex justify-content-center">
-            <li class="m-1"><a href="/">Accueil</a></li>
+            <li class="m-1"><a href="/carte">Accueil</a></li>
             <li class="m-1"><a href="/logements/1">Les Maisons</a></li>
             <li class="m-1"><a href="/logements/2">Les appartements</a></li>
             <li class="m-1"><a href="/logements/3">Les Villas</a></li>

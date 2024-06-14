@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\App;
 use App\AppRepoManager;
 use App\Model\Logement;
 use Core\Repository\Repository;
@@ -14,38 +15,43 @@ class LogementRepository extends Repository
         return 'logement';
     }
 
-    public function getAllLogement():array
+    public function getAllLogement(): ? array
     {
         $array_result = [];
 
-        $q = sprintf('SELECT `title`,`description`,`price_per_night`,`nb_room`,`nb_bed`,`nb_bath`,`nb_traveler`,`type`,`is_active`
-        FROM %1$s WHERE `is_active` = 1',
-        $this->getTableName());
+        $q = sprintf('SELECT 
+        *
+        FROM %s 
+        WHERE is_active = 1 ORDER BY price_per_night ASC',
+        $this->getTableName()
+    );
 
-        $stmt = $this->pdo->query($q);
-        if(!$stmt) return $array_result;
-        while($row_data = $stmt->fetch())
-        {
-            $array_result[] = new Logement($row_data);
+        $stmt = $this->pdo->prepare($q);
+        if(!$stmt->execute()) return $array_result;
+        while($row_data = $stmt->fetch()){
+            $logement = new Logement($row_data);
+            $logement->medias = AppRepoManager::getRm()->getMediaRepository()->getAllMedia($logement->id);
+            $array_result[] = $logement;
         }
         return $array_result;
     }
 
-    public function getLogementByid(int $logement_id)
+    public function getLogementByid(int $id)
     {
-        $q = sprintf('SELECT * FROM %s WHERE `id` = :id AND `is_active` = 1',
+        $q = sprintf('SELECT * FROM %s WHERE `id` = :id',
         $this->getTableName());
 
         $stmt = $this->pdo->prepare($q);
 
         if(!$stmt) return null;
 
-        $stmt->execute(['id' => $logement_id]);
+        $stmt->execute(['id' => $id]);
 
         $result = $stmt->fetch();
 
+        if (!$result) return null;
         $logement = new Logement($result);
-
+        $logement->medias = AppRepoManager::getRm()->getMediaRepository()->getAllMedia($logement->id);
         return $logement;
     }
 
@@ -54,7 +60,10 @@ class LogementRepository extends Repository
 
         $array_result = [];
 
-        $q = sprintf('SELECT * FROM %s WHERE `type_id` = :type_id AND `is_active` = 1 ORDER BY `price_per_night` ASC',
+        $q = sprintf('SELECT * FROM %s 
+        WHERE `type_id` = :type_id 
+        AND `is_active` = 1 
+        ORDER BY `price_per_night` ASC',
         $this->getTableName());
 
         $stmt =$this->pdo->prepare($q);
@@ -63,6 +72,7 @@ class LogementRepository extends Repository
         
         while($row_data = $stmt->fetch()){
             $logement = new Logement($row_data);
+            $logement->medias = AppRepoManager::getRm()->getMediaRepository()->getAllMedia($logement->id);
             $array_result[]=$logement;
         }
 

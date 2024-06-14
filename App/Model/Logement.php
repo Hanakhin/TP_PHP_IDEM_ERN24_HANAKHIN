@@ -6,7 +6,8 @@ namespace App\Model;
 use Core\Model\Model;
 
 class Logement extends Model
-{
+{   
+    public int $id;
     public string $title;
     public string $description;
     public float $price_per_night;
@@ -19,6 +20,5 @@ class Logement extends Model
     public int $type_id;
     public int $adress_id;
     public int $user_id;
-
-
+    public array $medias;
 }

@@ -14,13 +14,14 @@ class MediaRepository extends Repository
         return 'media';
     }
 
-    public function getAllMedia():array
+    public function getAllMedia($id):array
     {   
-        $q = sprintf('SELECT * FROM `%s`',
+        $q = sprintf('SELECT * FROM `%s` WHERE `logement_id` = :id',
         $this->getTableName());
 
         $array_result = [];
-        $stmt = $this->pdo->query($q);
+        $stmt = $this->pdo->prepare($q);
+        $stmt->execute(['id' => $id]);
         if(!$stmt) return $array_result;
         while($row_data = $stmt->fetch())
         {

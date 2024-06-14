@@ -23,3 +23,30 @@ ul, ol, li {
   --text-classic :#888;
   --text-Hovered :#000
 }
+
+.card-container{
+  gap: 12px;
+}
+
+.image-card{
+  width: 500px;
+  height: 300px;
+}
+
+.custom-class{
+  padding: 22px;
+  width: 80% !important;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  gap: 5rem;
+}
+
+.custom-class-card{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 12px;
+  gap: 12px;
+  align-items: center;
+}

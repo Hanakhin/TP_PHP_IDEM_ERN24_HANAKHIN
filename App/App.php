@@ -59,6 +59,8 @@ class App implements DatabaseConfigInterface
 
     $this->router->get('/', [HomeController::class, 'home'] );
     $this->router->get('/logements/{id}', [LogementController::class, 'getLogementByType']);
+    $this->router->get('/carte',[LogementController::class, 'getAllLogement']);
+    $this->router->get('/details/{id}',[LogementController::class, 'getDetail']);
     //INFO: si on veut renvoyer une vue à l'utilisateur => route en "get"
     //INFO: si on veut traiter des données d'un formulaire => route en "post"
 
