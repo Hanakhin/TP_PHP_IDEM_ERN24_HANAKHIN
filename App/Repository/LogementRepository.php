@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\AppRepoManager;
 use App\Model\Logement;
 use Core\Repository\Repository;
 
@@ -17,8 +18,8 @@ class LogementRepository extends Repository
     {
         $array_result = [];
 
-        $q = sprintf('SELECT l.`title`, l.`description`,l.`price_per_night`,l.`nb_room`,l.`nb_bed`,l.`nb_bath`,l.`nb_traveler`l.`type`,l.`is_active`
-        FROM %1$s AS l WHERE `is_active` = 1',
+        $q = sprintf('SELECT `title`,`description`,`price_per_night`,`nb_room`,`nb_bed`,`nb_bath`,`nb_traveler`,`type`,`is_active`
+        FROM %1$s WHERE `is_active` = 1',
         $this->getTableName());
 
         $stmt = $this->pdo->query($q);
@@ -45,22 +46,26 @@ class LogementRepository extends Repository
 
         $logement = new Logement($result);
 
+        return $logement;
     }
 
-    public function GetLogementByTypeId(int $type_id)
+    public function getLogementByTypeId(int $type_id) : ?array
     {
-        $q = sprintf('SELECT * FROM %s WHERE `type_id` = :type_id AND `is_active` = 1',
+
+        $array_result = [];
+
+        $q = sprintf('SELECT * FROM %s WHERE `type_id` = :type_id AND `is_active` = 1 ORDER BY `price_per_night` ASC',
         $this->getTableName());
 
         $stmt =$this->pdo->prepare($q);
 
-        if(!$stmt) return null;
+        if(!$stmt->execute(['type_id' => $type_id])) return $array_result ;
+        
+        while($row_data = $stmt->fetch()){
+            $logement = new Logement($row_data);
+            $array_result[]=$logement;
+        }
 
-        $stmt->execute(['type_id' => $type_id]);
-
-        $result = $stmt->fetch();
-
-        $logement = new Logement($result);
+        return $array_result;
     }
-
 }
