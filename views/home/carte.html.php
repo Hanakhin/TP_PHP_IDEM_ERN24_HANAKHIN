@@ -1,5 +1,7 @@
 <div class="d-flex flex-column card-container">
+<?php 
 
+?>
 
      <?php foreach ($logements as $logement) : ?>
           <div class="card custom-class ">

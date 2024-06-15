@@ -1,9 +1,14 @@
-    <div class="d-flex justify-content-around">
+<?php
+
+use Core\Session\Session;
+
+ var_dump($auth::isAuth())?>
+   <div class="d-flex justify-content-around">
       <!-- logo -->
       <div class="nav-logo">
         <a href="/">
           <!-- <img  src="/dir/vers/logo" alt="logo appli"> -->
-          <img src="../img/logo.svg" alt="" width="100px" height="50px">
+          <img src="/assets/img/logo.svg" alt="logo">
         </a>
       </div>
 
@@ -20,18 +25,31 @@
       </div>
       <!-- menu du profil -->
       <div >
-        <nav >
-          <ul >
-            <li >
-              <a href="#">Se connecter
-                <i class="bi bi-person custom-svg"></i>
-              </a>
+      <?php
 
-            </li>
-          </ul>
-
-        </nav>
+if ($auth::isAuth()) : ?>
+  <div class="dropdown custom-link">
+    <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+      Bienvenue <?= Session::get(Session::USER)->firstname ?>
+      <i class="bi bi-person custom-svg"></i>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+      <li><a class="dropdown-item custom-link" href="#">Profil</a></li>
+      <li><a class="dropdown-item custom-link" href="#">Mes logements</a></li>
+      <li>
+        <hr class="dropdown-divider">
+      </li>
+      <li><a class="dropdown-item custom-link" href="#">Mes Reservations</a></li>
+      <li>
+        <hr class="dropdown-divider">
+      </li>
+      <li><a class="dropdown-item custom-link" href="/logout">déconnexion</a></li>
+    </ul>
+  </div>
+<?php else : ?>
+  <a href="/connexion">Se connecter
+    <i class="bi bi-person custom-svg"></i>
+  </a>
+<?php endif ?>
       </div>
-
-
     </div>

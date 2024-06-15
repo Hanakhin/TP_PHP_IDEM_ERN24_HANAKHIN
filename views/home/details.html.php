@@ -6,5 +6,7 @@
         <h1 class="card-title text-uppercase"> <?= $logements->title ?></h1>
         <p class="card-subtitle subtitle"><?= $logements->description ?> </p>
         <h3>Prix par nuits : <?= $logements->price_per_night ?>€</h3>
+        <a href="/carte" class="btn btn-primary">Retour</a>
     </div>
+
 </div>
