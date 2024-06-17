@@ -14,5 +14,6 @@ class User extends Model
     public string $phone;
     public bool $is_admin;
     public ?int $adress_id;
+    public bool $is_active;
 
 }

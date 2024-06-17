@@ -78,4 +78,6 @@ class LogementRepository extends Repository
 
         return $array_result;
     }
+
+
 }

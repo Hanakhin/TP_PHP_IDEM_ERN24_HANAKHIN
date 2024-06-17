@@ -50,3 +50,12 @@ ul, ol, li {
   gap: 12px;
   align-items: center;
 }
+
+.custom-btn{
+  width: fit-content;
+  padding: 8px 24px;
+}
+
+p{
+  text-transform: capitalize;
+}

@@ -1,6 +1,6 @@
 <?php
-
 use Core\Session\Session;
+if($auth::isAuth() )$user_id = Session::get(Session::USER)->id;
 
  var_dump($auth::isAuth())?>
    <div class="d-flex justify-content-around">
@@ -34,7 +34,7 @@ if ($auth::isAuth()) : ?>
       <i class="bi bi-person custom-svg"></i>
     </a>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-      <li><a class="dropdown-item custom-link" href="#">Profil</a></li>
+      <li><a class="dropdown-item custom-link" href="/profil/<?= $user_id?>">Profil</a></li>
       <li><a class="dropdown-item custom-link" href="#">Mes logements</a></li>
       <li>
         <hr class="dropdown-divider">

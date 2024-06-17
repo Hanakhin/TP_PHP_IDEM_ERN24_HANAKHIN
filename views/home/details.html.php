@@ -7,6 +7,7 @@
         <p class="card-subtitle subtitle"><?= $logements->description ?> </p>
         <h3>Prix par nuits : <?= $logements->price_per_night ?>€</h3>
         <a href="/carte" class="btn btn-primary">Retour</a>
+        <a href="/reservation/<?= $logements->id?>" class="btn btn-primary">Demander une reservation</a>
     </div>
 
 </div>

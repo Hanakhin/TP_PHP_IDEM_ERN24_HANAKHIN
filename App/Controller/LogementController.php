@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\AppRepoManager;
 use Core\Controller\Controller;
+use Core\Form\FormResult;
 use Core\View\View;
+use Laminas\Diactoros\ServerRequest;
 
 class LogementController extends Controller
 {
@@ -42,5 +44,22 @@ class LogementController extends Controller
         ];
         $view = new View('home/details');
         $view->render($view_data);
+    }
+    private function generateReservationNumber()
+    {
+      //je veux un numero de commande du type: FACT2406_00001 par exemple
+      $reservation_number = 1;
+      $reservation = AppRepoManager::getRm()->getReservationRepository()->getAllReservation();
+      $year = date('y');
+      $month = date('m');
+  
+      $final = "FACT{$year}{$month}_{$reservation_number}";
+      return $final;
+    }
+    public function makeReservation(ServerRequest $request)
+    {
+       $form_data = $request->getParsedBody();
+       $form_result = new FormResult();
+       $reservation_number = $this->generateReservationNumber();
     }
 }

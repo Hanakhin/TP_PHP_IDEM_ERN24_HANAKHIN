@@ -5,6 +5,7 @@ namespace App;
 use App\Model\Logement;
 use App\Repository\LogementRepository;
 use App\Repository\MediaRepository;
+use App\Repository\ReservationRepository;
 use App\Repository\UserRepository;
 use Core\Repository\RepositoryManagerTrait;
 
@@ -17,8 +18,9 @@ class AppRepoManager
 // exemple: private Repository $Repository;
   private LogementRepository $logementRepository;
   private MediaRepository $mediaRepository;
-
   private UserRepository $userRepository;
+
+  private ReservationRepository $reservationRepository;
   //on crée ensuite les getter pour accéder à la propriété privée
   //exemple: public function getRepository(): Repository
   //{
@@ -36,6 +38,11 @@ class AppRepoManager
   public function getUserRepository(): UserRepository
   {
     return $this->userRepository;
+  }
+
+  public function getReservationRepository(): ReservationRepository
+  {
+    return $this->reservationRepository;
   }
   //enfin, on declare un construct qui va instancier les repositories
   protected function __construct()
