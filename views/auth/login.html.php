@@ -19,9 +19,10 @@
       <input type="password" class="form-control" name="password">
     </div>
     
-   
-    <button type="submit" class="call-action btn btn-primary">Je me connecte</button>
-    <a href="/carte" class="btn btn-primary">Retour</a>
+    <div style="margin: 22px 0">
+      <button type="submit" class="call-action btn btn-primary">Je me connecte</button>
+      <a href="/carte" >Retour</a>
+    </div>
   </form>
   <p class="header-description">Je n'ai pas de compte, <a class="auth-link" href="/inscription">je m'inscris</a></p>
 </main>

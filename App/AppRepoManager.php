@@ -2,7 +2,9 @@
 
 namespace App;
 
-use App\Model\Logement;
+use App\Repository\AdresseRepository;
+use App\Repository\EquipementRepository;
+use App\Repository\LogementEquipementRepository;
 use App\Repository\LogementRepository;
 use App\Repository\MediaRepository;
 use App\Repository\ReservationRepository;
@@ -19,8 +21,10 @@ class AppRepoManager
   private LogementRepository $logementRepository;
   private MediaRepository $mediaRepository;
   private UserRepository $userRepository;
-
   private ReservationRepository $reservationRepository;
+  private AdresseRepository $adresseRepository;
+  private EquipementRepository $equipementRepository;
+  private LogementEquipementRepository $logementEquipementRepository;
   //on crée ensuite les getter pour accéder à la propriété privée
   //exemple: public function getRepository(): Repository
   //{
@@ -44,6 +48,20 @@ class AppRepoManager
   {
     return $this->reservationRepository;
   }
+
+  public function getAdresseRepository(): AdresseRepository
+  {
+    return $this->adresseRepository;
+  }
+
+  public function getEquipementLogementRepository(): LogementEquipementRepository
+  {
+    return $this->logementEquipementRepository;
+  }
+  public function getEquipementRepository(): EquipementRepository
+  {
+    return $this->equipementRepository;
+  }
   //enfin, on declare un construct qui va instancier les repositories
   protected function __construct()
   {
@@ -53,5 +71,8 @@ class AppRepoManager
     $this->logementRepository = new LogementRepository($config);
     $this->mediaRepository = new MediaRepository($config);
     $this->userRepository = new UserRepository($config);
+    $this->adresseRepository = new AdresseRepository($config);
+    $this->logementEquipementRepository = new LogementEquipementRepository($config);
+    $this->equipementRepository = new EquipementRepository($config);
   }
 }

@@ -19,10 +19,8 @@ class LogementRepository extends Repository
     {
         $array_result = [];
 
-        $q = sprintf('SELECT 
-        *
-        FROM %s 
-        WHERE is_active = 1 ORDER BY price_per_night ASC',
+        $q = sprintf('SELECT * from %s
+        WHERE is_active = 1',
         $this->getTableName()
     );
 
@@ -31,6 +29,7 @@ class LogementRepository extends Repository
         while($row_data = $stmt->fetch()){
             $logement = new Logement($row_data);
             $logement->medias = AppRepoManager::getRm()->getMediaRepository()->getAllMedia($logement->id);
+            $logement->adress = AppRepoManager::getRm()->getAdresseRepository()->getAlladresse($logement->adress_id);
             $array_result[] = $logement;
         }
         return $array_result;
@@ -38,7 +37,10 @@ class LogementRepository extends Repository
 
     public function getLogementByid(int $id)
     {
-        $q = sprintf('SELECT * FROM %s WHERE `id` = :id',
+        $q = sprintf('SELECT * 
+        from %s
+        WHERE id = :id'
+        ,
         $this->getTableName());
 
         $stmt = $this->pdo->prepare($q);
@@ -52,6 +54,8 @@ class LogementRepository extends Repository
         if (!$result) return null;
         $logement = new Logement($result);
         $logement->medias = AppRepoManager::getRm()->getMediaRepository()->getAllMedia($logement->id);
+        $logement->adress = AppRepoManager::getRm()->getAdresseRepository()->getAlladresse($logement->adress_id);
+        $logement->equipement = AppRepoManager::getRm()->getEquipementLogementRepository()->getEquipements($logement->id);
         return $logement;
     }
 
@@ -73,11 +77,26 @@ class LogementRepository extends Repository
         while($row_data = $stmt->fetch()){
             $logement = new Logement($row_data);
             $logement->medias = AppRepoManager::getRm()->getMediaRepository()->getAllMedia($logement->id);
+            $logement->adress = AppRepoManager::getRm()->getAdresseRepository()->getAlladresse($logement->adress_id);
             $array_result[]=$logement;
         }
 
         return $array_result;
     }
 
-
+    public function getLogementByUser(int $user_id) : array
+    {
+      $q = sprintf('SELECT * from %s WHERE user_id = :id',
+      $this->getTableName());
+        $array_result = [];
+        $stmt = $this->pdo->prepare($q);
+        if(!$stmt->execute(['id'=>$user_id])) return $array_result;
+        while($row_data = $stmt->fetch()){
+            $logement = new Logement($row_data);
+            $logement->medias = AppRepoManager::getRm()->getMediaRepository()->getAllMedia($logement->id);
+            $logement->adress = AppRepoManager::getRm()->getAdresseRepository()->getAlladresse($logement->adress_id);
+            $array_result[] = $logement;
+        }
+        return $array_result;
+    }
 }

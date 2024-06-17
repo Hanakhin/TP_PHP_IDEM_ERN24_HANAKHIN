@@ -1,24 +1,14 @@
-<div class="d-flex flex-column card-container">
-<?php 
-
-?>
-
+<div class="card-container-carte">
      <?php foreach ($logements as $logement) : ?>
-          <div class="card custom-class ">
-               <div>
-                    <?php foreach ($logement->medias as $media) : ?>
-                         <img class="image-card" src="/img/<?= $media->image_path ?>" alt="">
-                    <?php endforeach ?>
-               </div>
-               <div>
-                    <form action="/details/<?= $logement->id ?>">
-                         <h1 class="card-title text-uppercase"><?= $logement->title ?></h1>
-                         <p class="card-subtitle subtitle"> <?= $logement->description ?></p>
-                         <p> Prix: <?= $logement->price_per_night ?>€ par nuits</p>
-                         <button class="btn btn-primary">Details</button>
-                    </form>
-               </div>
-          </div>
+          <div class="container custom-class-carte">
+               <div class="custom-card-carte">
+                    <img class="image-card" src="/assets/image-logements/<?= $logement->medias->image_path ?>" alt="">
 
-     <?php endforeach; ?>
-</div>
+                    <p class="text-capitalize"> <?= $logement->adress->city ?>, <?= $logement->adress->country ?></p>
+                    <p class="text-capitalize"> <?= $logement->adress->adress ?></p>
+                    <p class="text-capitalize"> <span class="font-weight-bold"><?= $logement->price_per_night ?></span> € par nuits</p>
+                    <a href="/details/<?= $logement->id ?>" class="d-flex align-self-center"><button class="btn btn-primary">details</button></a>
+
+               </div>
+          <?php endforeach; ?>
+          </div>

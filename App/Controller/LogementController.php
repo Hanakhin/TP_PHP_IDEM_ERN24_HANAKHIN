@@ -22,7 +22,7 @@ class LogementController extends Controller
             'h1' => 'Maison disponibles',
             'logements' => AppRepoManager::getRm()->getLogementRepository()->getLogementByTypeId($id)
         ];
-        $view = new View('home/logements');
+        $view = new View('logement/logements');
         $view->render($view_data);
     }
 
@@ -42,24 +42,16 @@ class LogementController extends Controller
             'h1'=> 'details de la maison',
             'logements'=> AppRepoManager::getRm()->getLogementRepository()->getLogementByid($id)
         ];
-        $view = new View('home/details');
+        $view = new View('logement/details');
         $view->render($view_data);
     }
-    private function generateReservationNumber()
+    public function getLogementByUser(int $id):void
     {
-      //je veux un numero de commande du type: FACT2406_00001 par exemple
-      $reservation_number = 1;
-      $reservation = AppRepoManager::getRm()->getReservationRepository()->getAllReservation();
-      $year = date('y');
-      $month = date('m');
-  
-      $final = "FACT{$year}{$month}_{$reservation_number}";
-      return $final;
-    }
-    public function makeReservation(ServerRequest $request)
-    {
-       $form_data = $request->getParsedBody();
-       $form_result = new FormResult();
-       $reservation_number = $this->generateReservationNumber();
+        $view_data=[
+            'h1' => 'vos logements',
+            'logements'=> AppRepoManager::getRm()->getLogementRepository()->getLogementByUser($id)
+        ];
+        $view = new View('logement/profilhote');
+        $view->render($view_data);
     }
 }

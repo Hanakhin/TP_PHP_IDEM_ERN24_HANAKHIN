@@ -8,5 +8,5 @@ use Core\Model\Model;
 class Equipement extends Model
 {
     public string $label;
-    public string $image_path;
+    public ?string $image_path;
 }
