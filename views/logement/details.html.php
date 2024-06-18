@@ -10,6 +10,7 @@
             <?php foreach ($logements->equipement as $equipement) : ?>
                 <p> <?= $equipement['label'] ?></p>
             <?php endforeach; ?>
+
             <?php if ($auth::isAuth()) : ?>
                 <a href=""><button class="btn btn-primary">Demander une reservation</button></a>
             <?php else : ?>
@@ -18,6 +19,7 @@
         <?php if (!$auth::isAuth()) : ?>
             <p>Vous devez vous <a href="/connexion">connecter</a> pour demander une reservation.</p>
         <?php endif; ?>
+        
         <a href="/carte" style="margin-top: 12px;">Retour</a>
     </div>
 

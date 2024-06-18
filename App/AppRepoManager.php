@@ -8,6 +8,7 @@ use App\Repository\LogementEquipementRepository;
 use App\Repository\LogementRepository;
 use App\Repository\MediaRepository;
 use App\Repository\ReservationRepository;
+use App\Repository\TypeRepository;
 use App\Repository\UserRepository;
 use Core\Repository\RepositoryManagerTrait;
 
@@ -25,6 +26,7 @@ class AppRepoManager
   private AdresseRepository $adresseRepository;
   private EquipementRepository $equipementRepository;
   private LogementEquipementRepository $logementEquipementRepository;
+  private TypeRepository $typeRepository;
   //on crée ensuite les getter pour accéder à la propriété privée
   //exemple: public function getRepository(): Repository
   //{
@@ -62,6 +64,10 @@ class AppRepoManager
   {
     return $this->equipementRepository;
   }
+  public function getTypeRepository(): TypeRepository
+  {
+    return $this->typeRepository;
+  }
   //enfin, on declare un construct qui va instancier les repositories
   protected function __construct()
   {
@@ -74,5 +80,6 @@ class AppRepoManager
     $this->adresseRepository = new AdresseRepository($config);
     $this->logementEquipementRepository = new LogementEquipementRepository($config);
     $this->equipementRepository = new EquipementRepository($config);
+    $this->typeRepository = new TypeRepository($config);
   }
 }

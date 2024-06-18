@@ -63,13 +63,13 @@ class UserRepository extends Repository
           $data = array_merge($data, $data_more);
       
           //on crée la requete SQL
-          $query = sprintf(
+          $q = sprintf(
             'INSERT INTO %s (`email`, `password`, `firstname`, `lastname`, `phone`, `is_admin`,`is_active`) 
             VALUES (:email, :password, :firstname, :lastname, :phone, :is_admin,:is_active)',
             $this->getTableName()
           );
           //on prépare la requete
-          $stmt = $this->pdo->prepare($query);
+          $stmt = $this->pdo->prepare($q);
           //on vérifie que la requete est bien préparée
           if (!$stmt) return null;
           //on execute en passant les valeurs

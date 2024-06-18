@@ -29,6 +29,10 @@ if ($auth::isAuth()) $user_id = Session::get(Session::USER)->id;
         <li>
           <hr class="dropdown-divider">
         </li>
+        <li><a class="dropdown-item custom-link" href="/addlogement/<?= $user_id?>">Add un logement</a></li>
+        <li>
+          <hr class="dropdown-divider">
+        </li>
         <li><a class="dropdown-item custom-link" href="#">Mes Reservations</a></li>
         <li>
           <hr class="dropdown-divider">

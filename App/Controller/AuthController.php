@@ -150,4 +150,6 @@ class AuthController extends Controller
       //on redirige sur la page d'accueil
       self::redirect('/carte');
     }
+
+
 }

@@ -85,8 +85,7 @@ button:hover{
 }
 
 .card-container-carte{
-  display: grid;
-  grid-template-columns: repeat(5, 20%);
+  display: flex;
 }
 
 nav{
@@ -117,3 +116,15 @@ nav{
   flex-direction: column;
   margin-top: 12px;
 } 
+
+.add-logement-form{
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+}
+
+.form-container{
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}

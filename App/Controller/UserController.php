@@ -42,4 +42,6 @@ class UserController extends Controller
         self::redirect('/carte');
       }
     }
+
+    
 }

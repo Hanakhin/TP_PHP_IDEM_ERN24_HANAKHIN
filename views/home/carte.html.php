@@ -1,6 +1,6 @@
 <div class="card-container-carte">
      <?php foreach ($logements as $logement) : ?>
-          <div class="container custom-class-carte">
+          <div class="custom-class-carte">
                <div class="custom-card-carte">
                     <img class="image-card" src="/assets/image-logements/<?= $logement->medias->image_path ?>" alt="">
 

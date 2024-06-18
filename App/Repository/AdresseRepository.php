@@ -28,4 +28,20 @@ class AdresseRepository extends Repository
 
     }
 
+    public function insertAdress( array $data) 
+    {
+        $q = sprintf('INSERT INTO %s (`adress`,`city`,`country`,`zip_code`)
+        VALUES (:adress,:city,:country,:zip_code)',
+        $this->getTableName()
+    );
+    $stmt = $this->pdo->prepare($q);
+    if(!$stmt) return null;
+    $stmt->execute($data);
+
+    
+
+    return $this->pdo->lastInsertId();
+
+    }
+
 }

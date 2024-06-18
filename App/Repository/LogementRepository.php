@@ -99,4 +99,22 @@ class LogementRepository extends Repository
         }
         return $array_result;
     }
+
+    public function addLogement(array $data)
+    {
+          //on fusionne les 2 tableaux
+    
+          
+        $q = sprintf('INSERT INTO %s 
+        (title,description,price_per_night,nb_room,nb_bed,nb_bath,nb_traveler,type_id ,is_active,adress_id,user_id)
+        VALUES
+        (:title,:description,:price_per_night,:nb_room,:nb_bed,:nb_bath,:nb_traveler,:type_id,:is_active,:adress_id,:user_id)',
+        $this->getTableName());
+
+        $stmt = $this->pdo->prepare($q);
+        if(!$stmt) return null;
+
+        $stmt->execute($data);
+        return $this->pdo->lastInsertId();
+    }
 }

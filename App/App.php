@@ -64,6 +64,9 @@ class App implements DatabaseConfigInterface
     $this->router->get('/carte',[LogementController::class, 'getAllLogement']);
     $this->router->get('/carte/{id}',[LogementController::class, 'getLogementByType']);
     $this->router->get('/details/{id}',[LogementController::class, 'getDetail']);
+    $this->router->get('/profil/logements/{id}',[LogementController::class,'getLogementByUser']);
+    $this->router->post('/newlogement',[LogementController::class,'addlogement']);
+    $this->router->get('/addlogement/{id}',[LogementController::class,'addlogementForm']);
 
     //Login/Register Routes
     $this->router->post('/register',[AuthController::class,'register']);
@@ -75,7 +78,6 @@ class App implements DatabaseConfigInterface
     //user routes
     $this->router->get('/profil/{id}',[UserController::class,'getUserProfil']);
     $this->router->get('/profil/delete/{id}',[UserController::class,'deleteUser']);
-    $this->router->get('/profil/logements/{id}',[LogementController::class,'getLogementByUser']);
 
     //INFO: si on veut renvoyer une vue à l'utilisateur => route en "get"
     //INFO: si on veut traiter des données d'un formulaire => route en "post"

@@ -34,8 +34,8 @@
       <label class="detail-description">Votre téléphone</label>
       <input type="tel" class="form-control" name="phone">
     </div>
-    <button type="submit" class="call-action btn btn-primary">Je m'inscrit</button>
-    <a href="/carte" class="btn btn-primary">Retour</a>
+    <button type="submit" class="call-action btn btn-primary mt-4">Je m'inscrit</button>
+    <a href="/carte" class="btn btn-primary mt-4">Retour</a>
   </form>
   <p class="header-description">J'ai déja un compte, <a class="auth-link" href="/connexion">je me connecte</a></p>
 </main>

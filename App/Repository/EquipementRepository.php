@@ -14,15 +14,18 @@ class EquipementRepository extends Repository
         return 'equipement';
     }
 
-    public function getAllEquipement($id):?object
+    public function getAllEquipement():array
     {   
-        $q = sprintf('SELECT * FROM %1$s',
+        $array_result = [];
+        $q = sprintf('SELECT * FROM %s',
         $this->getTableName());
 
         $stmt = $this->pdo->query($q);
-        if(!$stmt) return null;
-        $result = $stmt->fetch();
-        return new Equipement($result);
+        if(!$stmt) return $array_result;
+        while($result = $stmt->fetch()){
+            $array_result[]= new Equipement($result);
+        }
+        return $array_result;
         
     }
 
