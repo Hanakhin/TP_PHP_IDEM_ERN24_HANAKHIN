@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Controller;
 
@@ -8,6 +8,7 @@ use App\Model\Logement;
 use Core\Controller\Controller;
 use Core\Form\FormError;
 use Core\Form\FormResult;
+use Core\Form\FormSuccess;
 use Core\Session\Session;
 use Core\View\View;
 use Laminas\Diactoros\ServerRequest;
@@ -22,14 +23,14 @@ class LogementController extends Controller
 
     public function validInput(string $data): string
     {
-      $data = trim($data);
-      $data = strip_tags($data);
-      $data = stripslashes($data);
-      $data = htmlspecialchars($data);
-      return $data;
+        $data = trim($data);
+        $data = strip_tags($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
     }
 
-    public function getLogementByType(int $id):void
+    public function getLogementByType(int $id): void
     {
         $view_data = [
             'h1' => 'Maison disponibles',
@@ -39,9 +40,9 @@ class LogementController extends Controller
         $view->render($view_data);
     }
 
-    public function getAllLogement():void
+    public function getAllLogement(): void
     {
-        $view_data=[
+        $view_data = [
             'h1' => 'toutes les maisons',
             'logements' => AppRepoManager::getRm()->getLogementRepository()->getAllLogement()
         ];
@@ -49,28 +50,30 @@ class LogementController extends Controller
         $view->render($view_data);
     }
 
-    public function getDetail(int $id):void
+    public function getDetail(int $id): void
     {
         $view_data = [
-            'h1'=> 'details de la maison',
-            'logements'=> AppRepoManager::getRm()->getLogementRepository()->getLogementByid($id)
+            'h1' => 'details de la maison',
+            'logements' => AppRepoManager::getRm()->getLogementRepository()->getLogementByid($id)
         ];
         $view = new View('logement/details');
         $view->render($view_data);
     }
-    public function getLogementByUser(int $id):void
+    public function getLogementByUser(int $id): void
     {
-        $view_data=[
+        $view_data = [
             'h1' => 'vos logements',
-            'logements'=> AppRepoManager::getRm()->getLogementRepository()->getLogementByUser($id)
+            'logements' => AppRepoManager::getRm()->getLogementRepository()->getLogementByUser($id)
         ];
         $view = new View('logement/profilhote');
         $view->render($view_data);
     }
 
-    public function addlogement(ServerRequest $request):void
+    public function addlogement(ServerRequest $request): void
     {
         $data_form = $request->getParsedBody();
+
+        $file_data = $_FILES['image_path'];
         $form_result = new FormResult();
         $title = $data_form['title'];
         $description = $data_form['description'];
@@ -83,91 +86,140 @@ class LogementController extends Controller
         $type_id = $data_form['type_id'];
         $adresse = $data_form['adress'];
         $user_id = Session::get(Session::USER)->id;
-
         $city = $data_form['city'];
         $country = $data_form['country'];
         $zipCode = $data_form['zip_code'];
 
-        $image = $data_form['image'];
-        
-        $reservation_data_adress = [
-            'adress'=>$adresse,
-            'city'=>$city,
-            'country'=>$country,
-            'zip_code'=>$zipCode
-        ];
 
-        $adress_id = AppRepoManager::getRm()->getAdresseRepository()->insertAdress($reservation_data_adress);
-
-        $logement_data = [
-            'title' => $title,
-            'description' => $description,
-            'price_per_night' => $price,
-            'nb_room' => $nb_room,
-            'nb_bed' => $nb_bed,
-            'nb_bath'=>$nb_bath,
-            'nb_traveler' => $nb_traveler,
-            'is_active' => $is_active,
-            'type_id'=> $type_id ,
-            'adress_id' => $adress_id,
-            'user_id'=>$user_id,
-        ];
-
-        $reservation_logement_id = AppRepoManager::getRm()->getLogementRepository()->addLogement($logement_data);
-
-        foreach($data_form['equipements'] as $equipement)
-        {
-            $reservation_equipement_data = [
-                'logement_id' => $reservation_logement_id,
-                'equipement_id' => $equipement
-            ];
-        $equipement_data = AppRepoManager::getRm()->getEquipementLogementRepository()->insertEquipement($reservation_equipement_data);
-
-        }
-
-        $media_data = [
-            'image_path' => $image,
-            'logement_id' => $reservation_logement_id
-        ];
-
-        $media_data = AppRepoManager::getRm()->getMediaRepository()->insertMedia($media_data);
+        $image_name = $file_data['name'] ?? '';
+        $tmp_path = $file_data['tmp_name'] ?? '';
+        $public_path = 'public/assets/image-logements/';
 
 
-        if (
+
+
+
+
+
+
+        if (!in_array($file_data['type'] ?? '', ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'])) {
+            $form_result->addError(new FormError('Le format de l\'image n\'est pas valide'));
+        } elseif (
             empty($data_form['title']) ||
             empty($data_form['description']) ||
             empty($data_form['price_per_night']) ||
             empty($data_form['nb_room']) ||
             empty($data_form['nb_bed']) ||
-            empty($data_form['nb_bath'])||
+            empty($data_form['nb_bath']) ||
             empty($data_form['nb_traveler']) ||
-            empty($data_form['type']) 
-          ){
+            empty($data_form['type_id'])
+            ) {
             $form_result->addError(new FormError('veuillez remplir tout les champs'));
-          }
-          else{
-            $data_logement = [
-                'title' => strtolower($this->validInput($data_form['title'])),
-                'description' => strtolower($this->validInput($data_form['description'])),
-                'price_per_night' => strtolower($this->validInput($data_form['price_per_night'])),
-                'nb_room' => strtolower($this->validInput($data_form['nb_room'])),
-                'nb_bed' => strtolower($this->validInput($data_form['nb_bed'])),
-                'nb_bath' => strtolower($this->validInput($data_form['nb_bath'])),
-                'nb_traveler' => strtolower($this->validInput($data_form['nb_traveler'])),
-                'type' => $type_id
+        } else {
+            $filename = uniqid() . '_' . $image_name;
+            $slug = explode('.', strtolower(str_replace(' ', '-', $filename)))[0];
+            $imgPathPublic = PATH_ROOT . $public_path . $filename;
+            $reservation_data_adress = [
+                'adress' => $adresse,
+                'city' => $city,
+                'country' => $country,
+                'zip_code' => $zipCode
             ];
-            var_dump($data_logement);
-            AppRepoManager::getRm()->getLogementRepository()->addLogement($data_logement);
-            self::redirect('/carte');
-          }
-          
+            if (move_uploaded_file($tmp_path, $imgPathPublic)) {
+
+                $adress_id = AppRepoManager::getRm()->getAdresseRepository()->insertAdress($reservation_data_adress);
+                if (!$adress_id) {
+                    $form_result->addError(new FormError('erreur insert adresse'));
+                } else {
+                    $logement_data = [
+                        'title' => $title,
+                        'description' => $description,
+                        'price_per_night' => $price,
+                        'nb_room' => $nb_room,
+                        'nb_bed' => $nb_bed,
+                        'nb_bath' => $nb_bath,
+                        'nb_traveler' => $nb_traveler,
+                        'is_active' => $is_active,
+                        'type_id' => $type_id,
+                        'adress_id' => $adress_id,
+                        'user_id' => $user_id,
+                    ];
+
+
+                    $reservation_logement_id = AppRepoManager::getRm()->getLogementRepository()->addLogement($logement_data);
+                    if (!$reservation_logement_id) {
+                        $form_result->addError(new FormError('erreur insert logement'));
+                    } else {
+                        foreach ($data_form['equipements'] as $equipement) {
+                            $reservation_equipement_data = [
+                                'logement_id' => $reservation_logement_id,
+                                'equipement_id' => $equipement
+                            ];
+                            $equipement_data = AppRepoManager::getRm()->getEquipementLogementRepository()->insertEquipement($reservation_equipement_data);
+                            if (!$equipement_data) {
+                                $form_result->addError(new FormError('erreur insert equipements'));
+                            }
+                        }
+                        $media_data = [
+                            'image_path' => htmlspecialchars(trim($filename)),
+                            'logement_id' => $reservation_logement_id
+                        ];
+                        $media_data = AppRepoManager::getRm()->getMediaRepository()->insertMedia($media_data);
+                        if (!$media_data) {
+                            $form_result->addError(new FormError('erreur insert image'));
+                        } else {
+                            $form_result->addSuccess(new FormSuccess('ajout reussi'));
+                        }
+                    }
+                    // gestion des erreurs
+                    if ($form_result->hasErrors()) {
+                        // stockage des erreurs dans la session
+                        Session::set(Session::FORM_RESULT, $form_result);
+                        // redirection vers la page d'ajout de pizza
+                        self::redirect('/addlogment/<?= $user_id ?>');
+                    }
+
+                    // redirection vers la page admin
+                    if ($form_result->hasSuccess()) {
+                        Session::set(Session::FORM_SUCCESS, $form_result);
+                        Session::remove(Session::FORM_RESULT);
+                        self::redirect('/carte');
+                    }
+                }
+            } else {
+                $form_result->addError(new FormError('erreur deplacement image'));
+            }
+        }
     }
     public function addlogementForm()
     {
         $view = new View('user/addlogement');
         $view_data = [
-            'form_result' => Session::get(Session::FORM_RESULT)
+            'form_result' => Session::get(Session::FORM_RESULT),
+            'form_success'=> Session::get(Session::FORM_SUCCESS)
         ];
         $view->render($view_data);
+    }
+
+    public function deleteLogement(int $id): void
+    {
+        $form_result = new FormResult();
+
+        $deleteLogement = AppRepoManager::getRm()->getLogementRepository()->deleteLogement($id);
+
+        if (!$deleteLogement) {
+            $form_result->addError(new FormError('erreur lors de la suppression de l\'utilisateur'));
+        } else {
+            $form_result->addSuccess(new FormSuccess('hello'));
+        }
+
+        if ($form_result->hasErrors()) {
+            Session::set(Session::FORM_RESULT, $form_result);
+        }
+        if ($form_result->getSuccessMessage()) {
+            Session::remove(Session::FORM_RESULT);
+            session_destroy();
+            self::redirect('/carte');
+        }
     }
 }

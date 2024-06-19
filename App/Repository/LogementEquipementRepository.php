@@ -40,7 +40,7 @@ class LogementEquipementRepository extends Repository
       return $array_result ;
     }
 
-    public function insertEquipement(array $data)
+    public function insertEquipement(array $data): bool
     {
 
       $q = sprintf('INSERT INTO %s (equipement_id,logement_id)
@@ -48,9 +48,11 @@ class LogementEquipementRepository extends Repository
       $this->getTableName());
 
       $stmt = $this->pdo->prepare($q);
-      if(!$stmt) return null ;
+      if(!$stmt) return false ;
 
       $stmt->execute($data);
-      return $this->pdo->lastInsertId();
+      return $stmt->rowCount()>0;
     }
+
+    
 }

@@ -14,6 +14,6 @@ $user = Session::get(Session::USER);
             <p>Nom : <?= $user->lastname?></p>
             <p>email : <?= $user->email?></p>
             <p>n° de téléphone : <?= $user->phone?></p>
-            <button class="btn btn-danger">Delete account</button>
+            <button class="btn btn-danger">Desactiver mon compte</button>
         </form>
     </div>

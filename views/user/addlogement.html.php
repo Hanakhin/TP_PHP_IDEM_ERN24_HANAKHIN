@@ -1,5 +1,7 @@
 <div class="container ">
-    <form class="add-logement-form" action="/newlogement" method="POST">
+    <?php include(PATH_ROOT . 'views/_templates/_message.html.php');?>
+    
+    <form class="add-logement-form" action="/newlogement" method="POST" enctype="multipart/form-data">
 
         <div class="form-container">
 
@@ -77,12 +79,12 @@
                             <label for="type"><?= $equipement->label ?></label>
                         <?php endforeach; ?>
             </div>
-
             <div>
                 <label for="image">Photo de la maison</label>
-                <input type="file" name="image">
+                <input type="file" name="image_path" class="form-control">
             </div>
 
+            
         </div>
         <button type="submit" class="call-action btn btn-primary mt-4">Ajouter logement</button>
         <a href="/carte" class="btn btn-primary mt-4">Annuler</a>

@@ -151,5 +151,10 @@ class AuthController extends Controller
       self::redirect('/carte');
     }
 
+    public function IsActivated(int $id , bool $isActive):bool
+    { 
+      $isActivated = AppRepoManager::getRm()->getUserRepository()->isUserActive($id,$isActive);
+      return !is_null($isActivated);
+    }
 
 }

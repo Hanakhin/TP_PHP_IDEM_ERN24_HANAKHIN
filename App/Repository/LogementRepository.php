@@ -15,12 +15,12 @@ class LogementRepository extends Repository
         return 'logement';
     }
 
-    public function getAllLogement(): ? array
+    public function getAllLogement(): ?array
     {
         $array_result = [];
 
         $q = sprintf('SELECT * from %s
-        WHERE is_active = 1',
+        WHERE `is_active` = 1',
         $this->getTableName()
     );
 
@@ -28,6 +28,7 @@ class LogementRepository extends Repository
         if(!$stmt->execute()) return $array_result;
         while($row_data = $stmt->fetch()){
             $logement = new Logement($row_data);
+
             $logement->medias = AppRepoManager::getRm()->getMediaRepository()->getAllMedia($logement->id);
             $logement->adress = AppRepoManager::getRm()->getAdresseRepository()->getAlladresse($logement->adress_id);
             $array_result[] = $logement;
@@ -39,7 +40,8 @@ class LogementRepository extends Repository
     {
         $q = sprintf('SELECT * 
         from %s
-        WHERE id = :id'
+        WHERE id = :id 
+        AND `is_active` = 1'
         ,
         $this->getTableName());
 
@@ -55,7 +57,7 @@ class LogementRepository extends Repository
         $logement = new Logement($result);
         $logement->medias = AppRepoManager::getRm()->getMediaRepository()->getAllMedia($logement->id);
         $logement->adress = AppRepoManager::getRm()->getAdresseRepository()->getAlladresse($logement->adress_id);
-        $logement->equipement = AppRepoManager::getRm()->getEquipementLogementRepository()->getEquipements($logement->id);
+        $logement->equipement = AppRepoManager::getRm()->getEquipementRepository()->getEquipementById($logement->id);
         return $logement;
     }
 
@@ -86,7 +88,7 @@ class LogementRepository extends Repository
 
     public function getLogementByUser(int $user_id) : array
     {
-      $q = sprintf('SELECT * from %s WHERE user_id = :id',
+      $q = sprintf('SELECT * from %s WHERE user_id = :id AND `is_active` = 1',
       $this->getTableName());
         $array_result = [];
         $stmt = $this->pdo->prepare($q);
@@ -116,5 +118,15 @@ class LogementRepository extends Repository
 
         $stmt->execute($data);
         return $this->pdo->lastInsertId();
+    }
+
+    public function deleteLogement(int $id)
+    {
+        $q = sprintf('UPDATE %s SET `is_active` = 0 WHERE id = :id,
+        ',$this->getTableName());
+
+        $stmt=$this->pdo->prepare($q);
+        if(!$stmt) return false;
+        return $stmt->execute(['id'=>$id]);
     }
 }

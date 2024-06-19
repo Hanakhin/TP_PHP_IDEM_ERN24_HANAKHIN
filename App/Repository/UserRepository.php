@@ -36,10 +36,25 @@ class UserRepository extends Repository
         return $array_result;
     }
 
+    public function isUserActive(int $id, bool $isActive)
+    {
+      $q = sprintf('SELECT * FROM %s WHERE id = :id AND is_active = :isActive',
+      $this->getTableName());
+
+      $stmt = $this->pdo->prepare($q);
+      if(!$stmt) return null;
+      $stmt->execute(['id'=>$id, 'is_active'=>$isActive]);
+
+      $result = $stmt->fetch();
+
+      return new User($result);
+    }
+
     public function findUserByEmail(string $email): ?User
     {
       //on crée notre requete SQL
-      $q = sprintf('SELECT * FROM %s WHERE email = :email', $this->getTableName());
+      $q = sprintf('SELECT * FROM %s WHERE email = :email'
+      , $this->getTableName());
       //on prépare la requete
       $stmt = $this->pdo->prepare($q);
       //on vérifie que la requete est bien bien préparée
@@ -83,7 +98,8 @@ class UserRepository extends Repository
 
     public function getUserProfil(int $id)
     {
-      $q = sprintf('SELECT * FROM %s WHERE `id` = :id',$this->getTableName());
+      $q = sprintf('SELECT * FROM %s WHERE `id` = :id 
+      ',$this->getTableName());
       $stmt = $this->pdo->prepare($q);
       if(!$stmt) return null;
       $stmt->execute(['id' => $id]);
@@ -95,7 +111,7 @@ class UserRepository extends Repository
 
     public function deleteUser(int $id):bool
     {
-      $q = sprintf('DELETE FROM `user` WHERE `id` = :id',
+      $q = sprintf('UPDATE `%s` SET `is_active` = 0 WHERE `id` = :id',
       $this->getTableName());
 
       $stmt = $this->pdo->prepare($q);

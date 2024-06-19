@@ -27,9 +27,9 @@ CREATE TABLE `adresse` (
   `adress` varchar(255) DEFAULT NULL,
   `city` varchar(255) DEFAULT NULL,
   `country` varchar(255) DEFAULT NULL,
-  `zip_code` int(11) DEFAULT NULL,
+  `zip_code` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=137 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `adresse` (
 
 LOCK TABLES `adresse` WRITE;
 /*!40000 ALTER TABLE `adresse` DISABLE KEYS */;
-INSERT INTO `adresse` VALUES (1,'10 rue de juju','marseille','france',65820),(2,'11 rue de loic','paris','france',75824),(3,'12 rue de eymeric','normandie','france',52556),(4,'13 rue de hanakhin','picardie','france',42587),(5,'14 rue du fessier ','nantes','france',56854),(6,'15 boulevard de linard','perpignan','suisse',66000);
+INSERT INTO `adresse` VALUES (1,'10 rue de juju','marseille','france','65820'),(2,'11 rue de loic','paris','france','75824'),(3,'12 rue de eymeric','metz','france','57000'),(4,'13 rue de hanakhin','picardie','france','42587'),(5,'14 rue du fessier ','nantes','france','56854'),(6,'15 boulevard de linard','perpignan','suisse','66000'),(136,'test','test','test','66000');
 /*!40000 ALTER TABLE `adresse` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -54,7 +54,7 @@ CREATE TABLE `equipement` (
   `label` varchar(255) DEFAULT NULL,
   `image_path` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -63,6 +63,7 @@ CREATE TABLE `equipement` (
 
 LOCK TABLES `equipement` WRITE;
 /*!40000 ALTER TABLE `equipement` DISABLE KEYS */;
+INSERT INTO `equipement` VALUES (1,'machine a laver',NULL),(2,'piscine',NULL),(3,'jaccuzi',NULL),(4,'tele',NULL),(5,'frigo americain',NULL),(6,'terrasse',NULL),(7,'WIFI',NULL);
 /*!40000 ALTER TABLE `equipement` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -98,7 +99,7 @@ CREATE TABLE `logement` (
   CONSTRAINT `logement_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `type` (`id`),
   CONSTRAINT `logement_ibfk_2` FOREIGN KEY (`adress_id`) REFERENCES `adresse` (`id`),
   CONSTRAINT `logement_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -107,7 +108,7 @@ CREATE TABLE `logement` (
 
 LOCK TABLES `logement` WRITE;
 /*!40000 ALTER TABLE `logement` DISABLE KEYS */;
-INSERT INTO `logement` VALUES (1,'Maison1','yoyl',865,2,2,4,2,1,'maison',1,1,1),(2,'Appartement1','test',548,1,1,1,2,1,'appartement',2,2,1),(3,'Villa1','test',990,3,5,2,4,1,'villa',3,3,1),(4,'Maison2','yolo',25,2,2,2,2,1,'maison',1,4,1),(5,'Villa2','yolooll',900,2,2,3,4,1,'villa',3,6,1),(6,'Appartement2','fazfza',2547,5,3,8,5,1,'appartement',2,5,1);
+INSERT INTO `logement` VALUES (1,'Maison1','yoyl',865,2,2,4,2,1,'maison',1,1,1),(2,'Appartement1','test',548,1,1,1,2,1,'appartement',2,2,2),(3,'Villa1','test',990,3,5,2,4,1,'villa',3,3,3),(4,'Maison2','yolo',25,2,2,2,2,1,'maison',1,4,2),(5,'Villa2','yolooll',900,2,2,3,4,1,'villa',3,6,1),(6,'Appartement2','fazfza',2547,5,3,8,5,1,'appartement',2,5,3),(54,'test','test',25,2,2,2,2,1,NULL,1,136,3);
 /*!40000 ALTER TABLE `logement` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -128,7 +129,7 @@ CREATE TABLE `logementEquipement` (
   CONSTRAINT `fk_equipement_id` FOREIGN KEY (`equipement_id`) REFERENCES `equipement` (`id`),
   CONSTRAINT `fk_logement_equipement_id` FOREIGN KEY (`logement_id`) REFERENCES `logement` (`id`),
   CONSTRAINT `logementEquipement_ibfk_1` FOREIGN KEY (`equipement_id`) REFERENCES `equipement` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -137,6 +138,7 @@ CREATE TABLE `logementEquipement` (
 
 LOCK TABLES `logementEquipement` WRITE;
 /*!40000 ALTER TABLE `logementEquipement` DISABLE KEYS */;
+INSERT INTO `logementEquipement` VALUES (1,1,1),(2,2,1),(3,3,2),(4,4,3),(5,5,3),(6,6,4),(7,7,5),(88,1,54),(89,2,54),(90,3,54),(91,4,54),(92,7,54);
 /*!40000 ALTER TABLE `logementEquipement` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -154,7 +156,7 @@ CREATE TABLE `media` (
   PRIMARY KEY (`id`),
   KEY `logement_id` (`logement_id`),
   CONSTRAINT `media_ibfk_1` FOREIGN KEY (`logement_id`) REFERENCES `logement` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -163,7 +165,7 @@ CREATE TABLE `media` (
 
 LOCK TABLES `media` WRITE;
 /*!40000 ALTER TABLE `media` DISABLE KEYS */;
-INSERT INTO `media` VALUES (1,'maison1.jpg',1),(2,'maison2.webp',4),(3,'villa2.jpg',3),(4,'appart2.webp',2),(5,'villa1.jpg',5),(6,'appart1.webp',6);
+INSERT INTO `media` VALUES (1,'maison10.png',1),(2,'maison20.png',4),(3,'villa10.png',3),(4,'appart10.png',2),(5,'villa20.png',5),(6,'appart20.png',6),(26,'6672edccaa962_thumb-1920-817623.jpg',54);
 /*!40000 ALTER TABLE `media` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -242,8 +244,9 @@ CREATE TABLE `user` (
   `phone` varchar(255) DEFAULT NULL,
   `is_admin` tinyint(1) DEFAULT NULL,
   `adress_id` int(11) DEFAULT NULL,
+  `is_active` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -252,7 +255,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'test@gmail.com','Lejedi9970','nouni','hanakhin','0606060606',1,3),(14,'hanakhin@gmail.com','$2y$10$EOKFenCrJ0ZV2ve41zGxp.fvlm7ArzLkVgZYzsJTleZCIVppfxNZa','nouni','hanakhin','0606060606',0,NULL);
+INSERT INTO `user` VALUES (1,'test@gmail.com','Lejedi9970','nouni','hanakhin','0606060606',1,3,1),(2,'tahar@gmail.com','$2y$10$gXappxqpjl7LFnLpFNLmWe.oxsnJwe.HO1YntJHeEVP/4DoinIlE6','nouni','tahar','0505050505',0,NULL,1),(3,'hanakhin@gmail.com','$2y$10$T70VcEWWc.wxEIxSoUVVqO00j9dwq52SdZsqhDPgP3XG0X9EJ5kge','nouni','hanakhin','0606060606',0,NULL,0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -265,4 +268,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-15 21:18:48
+-- Dump completed on 2024-06-19 14:57:32

@@ -19,7 +19,7 @@
       <input type="password" class="form-control" name="password">
     </div>
     
-    <div style="margin: 22px 0">
+    <div style="margin: 22px 0; display:flex; gap: 12px; ">
       <button type="submit" class="call-action btn btn-primary">Je me connecte</button>
       <a href="/carte" >Retour</a>
     </div>

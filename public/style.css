@@ -16,24 +16,23 @@ a {
   align-self:center;
 }
 
-a:hover{
-    color:gray
-  }
   
 ul, ol, li {
   list-style: none;
 }
 button{
-  background-color: #F5385C !important;
-  border: none  !important;
+  background-color: #fff !important;
+  border: 1px solid #dc3545 !important;
+  color:#dc3545 !important ;
+  transition: all .1s ease-out !important;
 }
 button:hover{
-  background-color: #888 !important;
+  background-color: #dc3545 !important;
+  color:#fff !important ;
+  border: 1px solid #dc3545 !important;
+
 }
 
-.card-container{
-  gap: 12px;
-}
 
 .image-card{
   width: 300px;
@@ -41,31 +40,12 @@ button:hover{
   border-radius: 12px;
   padding: 4px;
 }
-
-.custom-class-carte{
-  padding: 22px;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 5rem;
-  justify-content: center;
-  align-items: center;
-}
 .custom-card-carte{
   display: flex;
   flex-direction: column;
   width: fit-content;
-}
-
-.custom-class-card{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
   padding: 12px;
-  gap: 12px;
-  align-items: center;
 }
-
 .custom-btn{
   width: fit-content;
   padding: 8px 24px;
@@ -85,7 +65,9 @@ button:hover{
 }
 
 .card-container-carte{
-  display: flex;
+  display:grid;
+  grid-template-columns: repeat(5, 20%);
+  grid-auto-flow: column;
 }
 
 nav{
@@ -104,11 +86,6 @@ nav{
   }
 }
 
-.custom-detail-card{
-  display: flex;
-  justify-content: center;
-}
-  
 .custom-detail-card{
   display: flex;
   justify-content: center;

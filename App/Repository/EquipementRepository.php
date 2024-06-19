@@ -21,12 +21,30 @@ class EquipementRepository extends Repository
         $this->getTableName());
 
         $stmt = $this->pdo->query($q);
+        
         if(!$stmt) return $array_result;
         while($result = $stmt->fetch()){
             $array_result[]= new Equipement($result);
         }
         return $array_result;
         
+    }
+
+    public function getEquipementById(int $id): ?array
+    {   
+        $q = sprintf('SELECT * FROM `%s` WHERE `id` = :id',
+        $this->getTableName());
+
+        $array_result = [];
+        $stmt =$this->pdo->prepare($q);
+
+        if(!$stmt->execute(['id' => $id])) return $array_result ;
+    
+        while($row_data = $stmt->fetch()){
+            $array_result[]= new Equipement($row_data);
+        }
+
+        return $array_result;
     }
 
 }
