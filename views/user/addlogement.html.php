@@ -32,7 +32,7 @@
             </div>
             <div class="box-auth-input">
                 <label class="detail-description">Prix par nuits</label>
-                <input type="number" class="form-control" name="price_per_night">
+                <input type="number" min="1" class="form-control" name="price_per_night">
             </div>
             <div class="form-container">
                 <div class="box-auth-input ">
@@ -68,6 +68,7 @@
             <label class="detail-description">Nombre maximal de voyageurs</label>
             <input type="number" class="form-control" name="nb_traveler">
         </div>
+
         <div class="form-container">
             <label class="detail-description">Equipements disponible</label>
             <div class="box-auth-input">
@@ -76,6 +77,7 @@
                             <label for="type"><?= $equipement->label ?></label>
                         <?php endforeach; ?>
             </div>
+
             <div>
                 <label for="image">Photo de la maison</label>
                 <input type="file" name="image">

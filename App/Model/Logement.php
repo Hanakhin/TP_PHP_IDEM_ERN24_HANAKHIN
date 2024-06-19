@@ -19,8 +19,8 @@ class Logement extends Model
     public int $type_id;
     public int $adress_id;
     public int $user_id;
-    public ?Media $medias;
-    public ?Adresse $adress;
+    public Media $medias;
+    public Adresse $adress;
 
     public array $equipement;
 }

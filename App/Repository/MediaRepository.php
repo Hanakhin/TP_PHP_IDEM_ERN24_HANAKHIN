@@ -14,17 +14,18 @@ class MediaRepository extends Repository
         return 'media';
     }
 
-    public function getAllMedia($id): ?object
+    public function getAllMedia(int $id): ?object
     {   
         $q = sprintf('SELECT * FROM `%s` WHERE `id` = :logement_id',
         $this->getTableName());
 
         $stmt = $this->pdo->prepare($q);
-        $stmt->execute(['logement_id' => $id]);
+        $stmt->execute(['logement_id'=> $id]);
         if(!$stmt) return null;
         
         $result = $stmt->fetch();
         return new Media($result);
+
     }
 
     public function insertMedia(array $data)
