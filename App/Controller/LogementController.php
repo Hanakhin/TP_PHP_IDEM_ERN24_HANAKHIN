@@ -208,11 +208,11 @@ class LogementController extends Controller
     public function deleteLogement(int $id): void
     {
         $form_result = new FormResult();
-
+        $user_id = Session::get(Session::USER)->id;
         $deleteLogement = AppRepoManager::getRm()->getLogementRepository()->deleteLogement($id);
 
         if (!$deleteLogement) {
-            $form_result->addError(new FormError('erreur lors de la suppression de l\'utilisateur'));
+            $form_result->addError(new FormError('erreur lors de la suppression du logement'));
         } else {
             $form_result->addSuccess(new FormSuccess('hello'));
         }
@@ -221,9 +221,7 @@ class LogementController extends Controller
             Session::set(Session::FORM_RESULT, $form_result);
         }
         if ($form_result->getSuccessMessage()) {
-            Session::remove(Session::FORM_RESULT);
-            session_destroy();
-            self::redirect('/carte');
+            self::redirect('/profil/logements/'.$user_id);
         }
     }
 

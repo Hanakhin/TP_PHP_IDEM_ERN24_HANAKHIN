@@ -65,6 +65,8 @@ class App implements DatabaseConfigInterface
     $this->router->get('/carte/{id}',[LogementController::class, 'getLogementByType']);
     $this->router->get('/details/{id}',[LogementController::class, 'getDetail']);
     $this->router->get('/profil/logements/{id}',[LogementController::class,'getLogementByUser']);
+    $this->router->get('/profil/logement/delete/{id}',[LogementController::class,'deleteLogement']);
+  
     
     $this->router->post('/newlogement',[LogementController::class,'addlogement']);
     $this->router->get('/addlogement/{id}',[LogementController::class,'addlogementForm']);

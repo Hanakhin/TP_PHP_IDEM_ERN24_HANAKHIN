@@ -21,10 +21,10 @@ use App\AppRepoManager; ?>
                 </div>
             </div>
         </div>
-        <?php if (!$auth::isAuth()) : ?>
-            <p>Vous devez vous <a href="/connexion">connecter</a> pour demander une reservation.</p>
-        <?php endif; ?>
     </div>
+    <?php if (!$auth::isAuth()) : ?>
+        <p>Vous devez vous <a href="/connexion">connecter</a> pour demander une reservation.</p>
+    <?php endif; ?>
 
 </div>
 <?php if ($auth::isAuth()) : ?>

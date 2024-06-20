@@ -122,7 +122,7 @@ class LogementRepository extends Repository
 
     public function deleteLogement(int $id)
     {
-        $q = sprintf('UPDATE %s SET `is_active` = 0 WHERE id = :id,
+        $q = sprintf('UPDATE %s SET `is_active` = 0 WHERE id = :id
         ',$this->getTableName());
 
         $stmt=$this->pdo->prepare($q);

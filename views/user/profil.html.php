@@ -4,9 +4,6 @@ $user = Session::get(Session::USER);
 ?>
 
 
-<h1 class="text-capitalize">Bienvenue <?= $user->firstname?></h1>
-
-
     <div class="container card d-flex flex-column " style="padding:24px;">
         <form action="/profil/delete/<?=$user->id ?>">  
             <h1>Vos informations</h1>
