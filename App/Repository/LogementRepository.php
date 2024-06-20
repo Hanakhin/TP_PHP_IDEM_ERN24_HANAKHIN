@@ -57,7 +57,7 @@ class LogementRepository extends Repository
         $logement = new Logement($result);
         $logement->medias = AppRepoManager::getRm()->getMediaRepository()->getAllMedia($logement->id);
         $logement->adress = AppRepoManager::getRm()->getAdresseRepository()->getAlladresse($logement->adress_id);
-        $logement->equipement = AppRepoManager::getRm()->getEquipementRepository()->getEquipementById($logement->id);
+        $logement->equipement = AppRepoManager::getRm()->getEquipementLogementRepository()->getEquipements($logement->id);
         return $logement;
     }
 

@@ -12,7 +12,7 @@ use Core\Session\Session;
 
 class UserController extends Controller
 {
-    public function getUserProfil($id)
+    public function getUserProfil($id):void
     {
         $view_data = [
             'h1' => 'users',
@@ -43,5 +43,24 @@ class UserController extends Controller
       }
     }
 
+    public function getUserReservations($id):void
+    {
+      $view_data = [
+        'h1' => 'users',
+        'users' => AppRepoManager::getRm()->getReservationRepository()->getAllReservation($id)
+    ];
+    $view = new View('user/reservationbyuser');
+    $view->render($view_data);
+    }
+
+    public function deleteReservation($id):void
+    {
+      $view_data = [
+        'h1' => 'users',
+        'users' => AppRepoManager::getRm()->getReservationRepository()->deleteReservation($id)
+    ];
+    $view = new View('user/reservationbyuser');
+    $view->render($view_data);
+    }
     
 }

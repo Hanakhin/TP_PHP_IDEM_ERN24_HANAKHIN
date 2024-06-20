@@ -81,5 +81,7 @@ class AppRepoManager
     $this->logementEquipementRepository = new LogementEquipementRepository($config);
     $this->equipementRepository = new EquipementRepository($config);
     $this->typeRepository = new TypeRepository($config);
+    $this->reservationRepository = new ReservationRepository($config);
+
   }
 }

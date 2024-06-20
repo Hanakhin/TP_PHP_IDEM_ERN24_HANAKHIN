@@ -34,7 +34,7 @@ class LogementEquipementRepository extends Repository
       $stmt->execute(['logement_id' =>$id]);
    
       while ($data = $stmt->fetch()) {
-          $array_result[] = $data;
+          $array_result[] = new Equipement($data);
       }
       //on retourne le tableau
       return $array_result ;

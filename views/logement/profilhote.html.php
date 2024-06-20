@@ -10,7 +10,7 @@ else $title = 'Les Villas';
      <?php foreach ($logements as $logement) : ?>
           <div class="container custom-class-carte card">
                <div class="custom-card-carte">
-                         <img class="image-card" src="/assets/image-logements/<?= $logement->medias->image_path ?>" alt="">
+                         <img class="image-card" src="/assets/image-logements/<?= $logement->medias[0]->image_path ?>" alt="">
 
                          <p class="text-capitalize"> <?= $logement->adress->city ?>, <?= $logement->adress->country?></p>
                          <p class="text-capitalize"> <?= $logement->adress->adress ?></p>

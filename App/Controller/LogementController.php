@@ -54,9 +54,13 @@ class LogementController extends Controller
     {
         $view_data = [
             'h1' => 'details de la maison',
-            'logements' => AppRepoManager::getRm()->getLogementRepository()->getLogementByid($id)
+            'logements' => AppRepoManager::getRm()->getLogementRepository()->getLogementByid($id),
+            'form_result' => Session::get(Session::FORM_RESULT),
+            'form_success'=> Session::get(Session::FORM_SUCCESS)
+            
         ];
         $view = new View('logement/details');
+
         $view->render($view_data);
     }
     public function getLogementByUser(int $id): void
@@ -221,5 +225,72 @@ class LogementController extends Controller
             session_destroy();
             self::redirect('/carte');
         }
+    }
+
+    public function addReservationForm()
+    {
+        $view = new View('logement/details');
+        $view_data = [
+            'form_result' => Session::get(Session::FORM_RESULT),
+            'form_success'=> Session::get(Session::FORM_SUCCESS)
+        ];
+        $view->render($view_data);
+    }
+
+    public function addReservation(ServerRequest $request):void
+    {
+        $data_form = $request->getParsedBody();
+        $form_result = new FormResult();
+        $date_debut = $data_form['date_debut'];
+        $date_fin = $data_form['date_fin'];
+        $nb_enfant = $data_form['nb_child'];
+        $nb_adult = $data_form['nb_adult'];
+        $price_total = $data_form['price_total'];
+        $logement_id = $data_form['logement_id'];
+        $user_id = Session::get(Session::USER)->id;
+
+        if(
+            empty($data_form['date_debut'])||
+            empty($data_form['date_fin'])||
+            empty($data_form['nb_child'])||
+            empty($data_form['nb_adult'])||
+            empty($data_form['price_total'])||
+            empty($data_form['logement_id'])||
+            empty($user_id)
+        ){
+            $form_result->addError(new FormError('veuillez remplir tout les champs'));
+        }else{
+            $reservation_data = [
+                'date_debut'=>$date_debut,
+                'date_fin'=>$date_fin,
+                'nb_child'=>$nb_enfant,
+                'nb_adult'=>$nb_adult,
+                'price_total'=>$price_total,
+                'logement_id'=>$logement_id,
+                'user_id'=>$user_id
+            ];
+
+            $newReservation = AppRepoManager::getRm()->getReservationRepository()->addReservation($reservation_data);
+
+            if(!$newReservation){
+                $form_result->addError(new FormError('erreur'));
+            }else{
+                $form_result->addSuccess(new FormSuccess('bien joué'));
+            }
+        }
+
+        if ($form_result->hasErrors()) {
+            // stockage des erreurs dans la session
+            Session::set(Session::FORM_RESULT, $form_result);
+            // redirection vers la page d'ajout de pizza
+            self::redirect('/details/'. $logement_id );
+        }
+
+        // redirection vers la page admin
+        if ($form_result->hasSuccess()) {
+            Session::set(Session::FORM_SUCCESS, $form_result);
+            Session::remove(Session::FORM_RESULT);
+            self::redirect('/carte');
+        }      
     }
 }
