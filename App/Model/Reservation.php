@@ -14,5 +14,6 @@ class Reservation extends Model
     public float $price_total;
     public int $logement_id;
     public int $user_id;
-
+    public array $user;
+    public Logement $logement;
 }

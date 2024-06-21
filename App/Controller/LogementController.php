@@ -67,7 +67,8 @@ class LogementController extends Controller
     {
         $view_data = [
             'h1' => 'vos logements',
-            'logements' => AppRepoManager::getRm()->getLogementRepository()->getLogementByUser($id)
+            'logements' => AppRepoManager::getRm()->getLogementRepository()->getLogementByUser($id),
+            'reservations'=> AppRepoManager::getRm()->getReservationRepository()->getReservationPerLogement($id)
         ];
         $view = new View('logement/profilhote');
         $view->render($view_data);

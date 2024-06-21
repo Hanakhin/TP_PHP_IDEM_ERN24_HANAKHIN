@@ -21,6 +21,6 @@ class Logement extends Model
     public int $user_id;
     public array $medias;
     public Adresse $adress;
-
+    public array $reservation;
     public array $equipement;
 }

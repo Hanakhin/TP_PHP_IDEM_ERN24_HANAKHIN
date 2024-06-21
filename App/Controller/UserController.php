@@ -47,7 +47,7 @@ class UserController extends Controller
     {
       $view_data = [
         'h1' => 'users',
-        'users' => AppRepoManager::getRm()->getReservationRepository()->getAllReservation($id)
+        'users' => AppRepoManager::getRm()->getReservationRepository()->getReservationByUser($id)
     ];
     $view = new View('user/reservationbyuser');
     $view->render($view_data);

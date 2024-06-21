@@ -97,6 +97,8 @@ class LogementRepository extends Repository
             $logement = new Logement($row_data);
             $logement->medias = AppRepoManager::getRm()->getMediaRepository()->getAllMedia($logement->id);
             $logement->adress = AppRepoManager::getRm()->getAdresseRepository()->getAlladresse($logement->adress_id);
+            $logement->reservation= AppRepoManager::getRm()->getReservationRepository()->getReservationByUser($logement->user_id);
+            $logement->equipement = AppRepoManager::getRm()->getEquipementLogementRepository()->getEquipements($logement->id);
             $array_result[] = $logement;
         }
         return $array_result;

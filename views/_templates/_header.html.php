@@ -21,5 +21,8 @@
 
 <body>
   <header>
-    <?php include(PATH_ROOT .'views/_templates/_navbar.html.php'); ?>
+    <?php 
+    include(PATH_ROOT .'views/_templates/_navbar.html.php'); 
+    date_default_timezone_set('EUROPE/PARIS');
+    ?>
   </header>

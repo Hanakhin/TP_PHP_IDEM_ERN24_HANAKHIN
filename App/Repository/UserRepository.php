@@ -22,7 +22,7 @@ class UserRepository extends Repository
     {
         $array_result = [];
 
-        $q = sprintf('SELECT `email`, `lastname`,`firstname`,`phone`
+        $q = sprintf('SELECT `id`,`email`, `lastname`,`firstname`,`phone`
         FROM %s
         WHERE `is_active` = 1',
         $this->getTableName());
@@ -117,6 +117,19 @@ class UserRepository extends Repository
       $stmt = $this->pdo->prepare($q);
       if(!$stmt) return false;
       return $stmt->execute(['id'=>$id]);
+    }
+
+    public function getUserByReservationId(int $user_id)
+    {
+      $q = sprintf('SELECT * FROM %s WHERE `id` = :user_id',$this->getTableName());
+
+      $stmt = $this->pdo->prepare($q);
+      if(!$stmt->execute(['user_id'=>$user_id])) return false;
+      while($row_data = $stmt->fetch()){
+        $user = new User($row_data);
+        $array_result[] = $user;    
+    }
+    return $array_result;
     }
 
 
