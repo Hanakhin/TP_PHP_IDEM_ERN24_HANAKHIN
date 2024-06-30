@@ -46,7 +46,7 @@ class LogementController extends Controller
             'h1' => 'toutes les maisons',
             'logements' => AppRepoManager::getRm()->getLogementRepository()->getAllLogement()
         ];
-        $view = new View('home/carte');
+        $view = new View('home/index');
         $view->render($view_data);
     }
 
@@ -188,7 +188,7 @@ class LogementController extends Controller
                     if ($form_result->hasSuccess()) {
                         Session::set(Session::FORM_SUCCESS, $form_result);
                         Session::remove(Session::FORM_RESULT);
-                        self::redirect('/carte');
+                        self::redirect('/');
                     }
                 }
             } else {
@@ -289,7 +289,7 @@ class LogementController extends Controller
         if ($form_result->hasSuccess()) {
             Session::set(Session::FORM_SUCCESS, $form_result);
             Session::remove(Session::FORM_RESULT);
-            self::redirect('/carte');
+            self::redirect('/');
         }      
     }
 }

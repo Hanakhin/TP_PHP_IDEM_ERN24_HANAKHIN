@@ -148,7 +148,7 @@ class AuthController extends Controller
       //on va détruire la session
       Session::remove(Session::USER);
       //on redirige sur la page d'accueil
-      self::redirect('/carte');
+      self::redirect('/');
     }
 
     public function IsActivated(int $id , bool $isActive):bool

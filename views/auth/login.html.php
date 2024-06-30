@@ -21,7 +21,7 @@
     
     <div style="margin: 22px 0; display:flex; gap: 12px; ">
       <button type="submit" class="call-action btn btn-primary">Je me connecte</button>
-      <a href="/carte" >Retour</a>
+      <a href="/" >Retour</a>
     </div>
   </form>
   <p class="header-description">Je n'ai pas de compte, <a class="auth-link" href="/inscription">je m'inscris</a></p>

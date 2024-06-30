@@ -6,7 +6,6 @@ use Core\Session\Session;
 Session::get(Session::USER)->id = $user_id;
 
 ?>
-
 <div class="card-container-carte ">
     <?php foreach(AppRepoManager::getRm()->getReservationRepository()->getReservationByUser($user_id) as $reservation):?>
         <?php 
@@ -15,8 +14,6 @@ Session::get(Session::USER)->id = $user_id;
                 $interval = $date_debut->diff($date_fin);
                 $diff = $interval->days
         ?>
-
-
         <div class="custom-card-carte card">
                <p class="text-capitalize"> Date d'arrivée: <?= $reservation->date_debut ?></p>
                <p>Date de départ: <?= $reservation->date_fin?></p>

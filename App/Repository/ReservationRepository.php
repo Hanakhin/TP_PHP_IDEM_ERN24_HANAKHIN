@@ -47,7 +47,7 @@ class ReservationRepository extends Repository
             $reservations = new Reservation($row_data);
             $reservations->user = AppRepoManager::getRm()->getUserRepository()->getUserByReservationId($reservations->user_id);
             $reservations->logement = AppRepoManager::getRm()->getLogementRepository()->getLogementByid($reservations->logement_id);
-            $array_result[]=$reservations;
+            $array_result[]=$reservations ;
         }
         return $array_result;
     }

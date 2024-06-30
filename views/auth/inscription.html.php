@@ -36,8 +36,8 @@
     </div>
 
     <div style="margin: 22px 0; display:flex; gap: 12px;" >
-      <button type="submit" class="call-action btn btn-primary mt-4">Je m'inscrit</button>
-      <a href="/carte" class=" mt-4">Retour</a>
+      <button type="submit" class="call-action btn btn-primary mt-4">Je m'inscris</button>
+      <a href="/" class=" mt-4">Retour</a>
     </div>
 
   </form>

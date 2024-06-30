@@ -39,7 +39,7 @@ class UserController extends Controller
       if ($form_result->getSuccessMessage()) {
         Session::remove(Session::FORM_RESULT);
         session_destroy();
-        self::redirect('/carte');
+        self::redirect('/index');
       }
     }
 

@@ -58,11 +58,10 @@ class App implements DatabaseConfigInterface
     $this->router->pattern('id', '[0-9]\d*'); //n'autorise que les chiffres
     $this->router->pattern('order_id', '[0-9]\d*'); //n'autorise que les chiffres
 
-    $this->router->get('/', [HomeController::class, 'home'] );
+    $this->router->get('/', [HomeController::class, 'getAllLogement'] );
     //logement routes
     $this->router->get('/logements/{id}', [LogementController::class, 'getLogementByType']);
-    $this->router->get('/carte',[LogementController::class, 'getAllLogement']);
-    $this->router->get('/carte/{id}',[LogementController::class, 'getLogementByType']);
+    $this->router->get('/index/{id}',[LogementController::class, 'getLogementByType']);
     $this->router->get('/details/{id}',[LogementController::class, 'getDetail']);
     $this->router->get('/profil/logements/{id}',[LogementController::class,'getLogementByUser']);
     $this->router->get('/profil/logement/delete/{id}',[LogementController::class,'deleteLogement']);

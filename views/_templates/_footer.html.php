@@ -1,12 +1,5 @@
   <footer id="footer">
-    <nav>
-      <ul class="d-flex justify-content-center">
-        <li class="m-1"><a href="#">footer lien1</a></li>
-        <li class="m-1"><a href="#">footer lien2</a></li>
-        <li class="m-1"><a href="#">footer lien3</a></li>
-        <li class="m-1"><a href="#">footer lien4</a></li>
-      </ul>
-    </nav>
+      
   </footer>
 
   <!-- import de la librairie popperjs -->

@@ -1,1 +1,1 @@
-SELECT `id`,`is_active` FROM user WHERE `id` = :id
+SELECT * FROM `%s` WHERE user_id = :user_id

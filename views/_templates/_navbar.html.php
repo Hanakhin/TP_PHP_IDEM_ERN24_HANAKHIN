@@ -9,8 +9,7 @@ if ($auth::isAuth()) $user_id = Session::get(Session::USER)->id;
   <a href="/">
     <img src="/assets/image/logo.svg" alt="logo">
   </a>
-  <ul>
-    <li class="m-1"><a href="/carte">Accueil</a></li>
+  <ul>  
     <li class="m-1"><a href="/logements/1">Les Maisons</a></li>
     <li class="m-1"><a href="/logements/2">Les appartements</a></li>
     <li class="m-1"><a href="/logements/3">Les Villas</a></li>

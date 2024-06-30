@@ -23,7 +23,7 @@ use App\AppRepoManager; ?>
         </div>
     </div>
     <?php if (!$auth::isAuth()) : ?>
-        <p>Vous devez vous <a href="/connexion">connecter</a> pour demander une reservation.</p>
+        <p style="display: flex;flex-direction: column;text-align: center;">Vous devez vous <a href="/connexion">connecter</a> pour demander une reservation.</p>
     <?php endif; ?>
 
 </div>
@@ -59,7 +59,7 @@ use App\AppRepoManager; ?>
             </div>
 
             <button type="submit" class="call-action btn btn-primary mt-4">Demander une reservation</button>
-            <a href="/carte" class="btn btn-primary mt-4">Annuler</a>
+            <a href="/index" class="btn btn-primary mt-4">Annuler</a>
         </form>
     </div>
     </div>
