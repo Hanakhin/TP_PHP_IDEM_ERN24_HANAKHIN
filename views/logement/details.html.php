@@ -59,7 +59,7 @@ use App\AppRepoManager; ?>
             </div>
 
             <button type="submit" class="call-action btn btn-primary mt-4">Demander une reservation</button>
-            <a href="/index" class="btn btn-primary mt-4">Annuler</a>
+            <a href="/" class="btn btn-primary mt-4">Annuler</a>
         </form>
     </div>
     </div>

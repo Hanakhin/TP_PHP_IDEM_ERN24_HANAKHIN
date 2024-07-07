@@ -1,6 +1,7 @@
 
-<div class="card-container-carte">
-     <?php foreach ($logements as $logement) : ?>
+<div style="display: flex; align-items:center; justify-content: center;">
+     <div class="card-container-carte">
+          <?php foreach ($logements as $logement) : ?>
           <div class="custom-card-carte">
                <img class="image-card" src="/assets/image-logements/<?= $logement->medias[0]->image_path ?>" alt="">
 
@@ -10,4 +11,6 @@
                <a href="/details/<?= $logement->id ?>" class="d-flex align-self-center"><button class="btn btn-primary">details</button></a>
           </div>
      <?php endforeach; ?>
+     </div>
+
 </div>

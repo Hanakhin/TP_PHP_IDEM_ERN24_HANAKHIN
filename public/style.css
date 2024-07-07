@@ -68,7 +68,7 @@ button:hover{
 
 .card-container-carte{
   display:grid;
-  grid-template-columns: repeat(5, 20%);
+  grid-template-columns: repeat(4, 25%);
   padding: 48px;
   gap: 12px;
 
@@ -84,11 +84,12 @@ nav{
 
   ul{
     display: flex;
-    align-items:center;
     justify-content: space-evenly;
     width: 50%;
   }
 }
+
+
 
 .custom-detail-card{
   display: flex;
@@ -106,7 +107,7 @@ nav{
 
 .form-container{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 12px;
 }
 
@@ -127,3 +128,33 @@ nav{
   justify-content: center;
   text-transform: uppercase;
 }
+
+@media screen and (max-width:800px){
+  .card-container-carte{
+  display: flex;
+  grid-template-columns: repeat(5, 20%);
+  padding: 48px;
+  gap: 12px;
+  flex-direction: column;
+  align-items: center;
+  }
+
+  nav{
+    gap: 0;
+    flex-direction: column;
+    margin: 30px 0;
+    gap: 12px;
+    ul{
+      width: 100%;
+    }
+  }
+
+}
+
+@media screen and (min-width:800px) and (max-width:1400px) {
+  .card-container-carte{
+    display: grid;
+    grid-template-columns: repeat(2,50%);
+  }
+}
+
