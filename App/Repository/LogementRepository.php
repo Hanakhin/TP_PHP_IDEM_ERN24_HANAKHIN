@@ -40,8 +40,7 @@ class LogementRepository extends Repository
     {
         $q = sprintf('SELECT * 
         from %s
-        WHERE id = :id 
-        AND `is_active` = 1'
+        WHERE id = :id '
         ,
         $this->getTableName());
 
